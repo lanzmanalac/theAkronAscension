@@ -1,0 +1,79 @@
+Microsoft Windows [Version 10.0.19045.5965]
+(c) Microsoft Corporation. All rights reserved.
+
+D:\App Dev\mysql\bin>mysql -u root -p
+Enter password:
+ERROR 2002 (HY000): Can't connect to MySQL server on 'localhost' (10061)
+
+D:\App Dev\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> CREATE DATABASE LJ_Tmln;
+Query OK, 1 row affected (1.102 sec)
+
+MariaDB [(none)]> USE LJ_Tmln;
+Database changed
+MariaDB [LJ_Tmln]> CREATE TABLE lebron_timeline (
+    ->   id INT AUTO_INCREMENT PRIMARY KEY,
+    ->   year VARCHAR(10) NOT NULL,
+    ->   title VARCHAR(255) NOT NULL,
+    ->   description TEXT NOT NULL
+    -> );
+Query OK, 0 rows affected (0.260 sec)
+
+MariaDB [LJ_Tmln]> INSERT INTO lebron_timeline (year, title, description) VALUES
+    -> ('2003', 'Drafted by Cavaliers', 'LeBron James was the first overall pick in the 2003 NBA Draft.'),
+    -> ('2010', 'Signed with Miami Heat', 'Joined forces with Dwyane Wade and Chris Bosh.'),
+    -> ('2012', 'First NBA Championship', 'Won his first title with Miami Heat.'),
+    -> ('2016', 'Championship with Cavs', 'Historic comeback to win NBA Finals with Cleveland.');
+Query OK, 4 rows affected (0.229 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [LJ_Tmln]> SELECT * FROM lebron_timeline;
++----+------+------------------------+----------------------------------------------------------------+
+| id | year | title                  | description                                                    |
++----+------+------------------------+----------------------------------------------------------------+
+|  1 | 2003 | Drafted by Cavaliers   | LeBron James was the first overall pick in the 2003 NBA Draft. |
+|  2 | 2010 | Signed with Miami Heat | Joined forces with Dwyane Wade and Chris Bosh.                 |
+|  3 | 2012 | First NBA Championship | Won his first title with Miami Heat.                           |
+|  4 | 2016 | Championship with Cavs | Historic comeback to win NBA Finals with Cleveland.            |
++----+------+------------------------+----------------------------------------------------------------+
+4 rows in set (0.000 sec)
+
+MariaDB [LJ_Tmln]> INSERT INTO lebron_timeline (year, title, description)
+    -> VALUES (
+    ->   '2018',
+    ->   'Joined the Los Angeles Lakers',
+    ->   'LeBron James signed with the Lakers in 2018, continuing his dominance and later winning a title with them in 2020.'
+    -> );
+Query OK, 1 row affected (1.846 sec)
+
+MariaDB [LJ_Tmln]> INSERT INTO lebron_timeline (year, title, description)
+    -> VALUES (
+    ->   '2020',
+    ->   'NBA Championship with Lakers',
+    ->   'Led the Lakers to their 17th NBA title in the 2020 NBA Finals inside the Orlando bubble, earning his fourth Finals MVP award.'
+    -> );
+Query OK, 1 row affected (0.407 sec)
+
+MariaDB [LJ_Tmln]> SELECT * FROM lebron_timeline;
++----+------+-------------------------------+-------------------------------------------------------------------------------------------------------------------------------+
+| id | year | title                         | description                                                                                                                   |
++----+------+-------------------------------+-------------------------------------------------------------------------------------------------------------------------------+
+|  1 | 2003 | Drafted by Cavaliers          | LeBron James was the first overall pick in the 2003 NBA Draft.                                                                |
+|  2 | 2010 | Signed with Miami Heat        | Joined forces with Dwyane Wade and Chris Bosh.                                                                                |
+|  3 | 2012 | First NBA Championship        | Won his first title with Miami Heat.                                                                                          |
+|  4 | 2016 | Championship with Cavs        | Historic comeback to win NBA Finals with Cleveland.                                                                           |
+|  5 | 2018 | Joined the Los Angeles Lakers | LeBron James signed with the Lakers in 2018, continuing his dominance and later winning a title with them in 2020.            |
+|  6 | 2020 | NBA Championship with Lakers  | Led the Lakers to their 17th NBA title in the 2020 NBA Finals inside the Orlando bubble, earning his fourth Finals MVP award. |
++----+------+-------------------------------+-------------------------------------------------------------------------------------------------------------------------------+
+6 rows in set (0.000 sec)
+
+MariaDB [LJ_Tmln]> SELECT
