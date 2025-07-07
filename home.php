@@ -47,11 +47,8 @@
                 </div>
                 
                 <nav class="main-nav">
-                    <a href="#timeline" class="nav-link"> Timeline</a>
-                    <a href="#exhibits" class="nav-link"> Exhibits</a>
-                    <a href="#milestones" class="nav-link"> Milestones</a>
-                    <a href="#teammates" class="nav-link"> Teammates</a>
-                    <a href="#rivalries" class="nav-link"> Rivalries</a>
+                    <a href="#features" class="nav-link"> Features</a>
+                    <a href="#Search" class="nav-link"> Search</a>
                 </nav>
                 
                 <div class="header-controls">
@@ -220,7 +217,8 @@
         </section>
 
         <!-- Search & Filter Section -->
-        <section class="search-filter-section">
+
+        <section id = "Search" class="search-filter-section">
             <div class="container">
                 <h2 class="section-title">Find What You're Looking For</h2>
                 <div class="search-filter-container">
