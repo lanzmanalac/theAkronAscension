@@ -1,78 +1,81 @@
 <?php
 // Start session if not already started
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$isLoggedIn = isset($_SESSION['user_logged_in']) ? $_SESSION['user_logged_in'] : false;
+// Check login status
+$isLoggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === true;
 
-// Handle login form submission
-if (isset($_POST['action']) && $_POST['action'] == 'login') {
-    // Simple authentication (in real app, use proper validation)
-    if (!empty($_POST['username']) && !empty($_POST['password'])) {
-        $_SESSION['user_logged_in'] = true;
-        $_SESSION['username'] = $_POST['username'];
-        $isLoggedIn = true;
+// Handle form actions (login, logout, theme toggle)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['action'])) {
+        switch ($_POST['action']) {
+            case 'login':
+                if (!empty($_POST['username']) && !empty($_POST['password'])) {
+                    $_SESSION['user_logged_in'] = true;
+                    $_SESSION['username'] = $_POST['username'];
+                    $isLoggedIn = true;
+                }
+                break;
+
+            case 'logout':
+                session_destroy();
+                $isLoggedIn = false;
+                break;
+
+            case 'toggle_theme':
+                $currentTheme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light';
+                $newTheme = $currentTheme === 'light' ? 'dark' : 'light';
+                setcookie('theme', $newTheme, time() + (86400 * 30), "/"); // 30 days
+                $_COOKIE['theme'] = $newTheme; // Apply immediately during current request
+                break;
+        }
     }
 }
 
-// Handle logout
-if (isset($_POST['action']) && $_POST['action'] == 'logout') {
-    session_destroy();
-    $isLoggedIn = false;
-}
-
-// Handle theme toggle
+// Determine theme (default to light)
 $theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light';
-if (isset($_POST['action']) && $_POST['action'] == 'toggle_theme') {
-    $theme = $theme === 'light' ? 'dark' : 'light';
-    setcookie('theme', $theme, time() + (86400 * 30), "/"); // 30 days
-}
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeBron James Virtual Museum</title>
-    <link rel="stylesheet" href="home.css">
-    
-</head>
-<body>
-<!-- Header Section -->
+
+<!-- Header HTML -->
 <header class="header">
     <div class="nav-container">
+        <!-- Logo Section -->
         <div class="logo">
             <h1>The King's Legacy</h1>
             <span class="tagline">The LeBron James Museum</span>
         </div>
-        
+
+        <!-- Navigation Links -->
         <nav class="main-nav">
-            <a href="#timeline" class="nav-link"> Timeline</a>
-            <a href="#exhibits" class="nav-link"> Exhibits</a>
-            <a href="#milestones" class="nav-link"> Milestones</a>
-            <a href="#teammates" class="nav-link"> Teammates</a>
-            <a href="#rivalries" class="nav-link"> Rivalries</a>
+            <a href="timeline.php" class="nav-link">Timeline</a>
+            <a href="exhibits.php" class="nav-link">Exhibits</a>
+            <a href="milestones.php" class="nav-link">Milestones</a>
+            <a href="teammate&rival.php" class="nav-link">Teammates</a>
+            <a href="rivalries.php" class="nav-link">Rivalries</a>
         </nav>
-        
+
+        <!-- Header Controls -->
         <div class="header-controls">
-            <!-- Theme Toggle -->
+            <!-- Theme Toggle Button -->
             <form method="POST" class="theme-toggle-form">
                 <input type="hidden" name="action" value="toggle_theme">
-                <button type="submit" class="theme-toggle-btn">
-                    <?php echo $theme === 'light' ? '🌙' : '☀️'; ?>
+                <button type="submit" class="theme-toggle-btn" title="Toggle Theme">
+                    <?= $theme === 'light' ? '🌙' : '☀️'; ?>
                 </button>
             </form>
-            
-            <!-- Search Form -->
-            <form class="search-form" method="GET">
+
+            <!-- Search Bar -->
+            <form class="search-form" method="GET" action="">
                 <input type="text" name="search" placeholder="Search museum..." class="search-input">
                 <button type="submit" class="search-btn">🔍</button>
             </form>
-            
-            <!-- Login/Profile Section -->
+
+            <!-- User Section -->
             <?php if ($isLoggedIn): ?>
                 <div class="user-profile">
+                    <span class="welcome-msg">Hi, <?= htmlspecialchars($_SESSION['username']); ?></span>
                     <form method="POST" class="logout-form">
                         <input type="hidden" name="action" value="logout">
                         <button type="submit" class="logout-btn">Logout</button>
@@ -90,7 +93,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'toggle_theme') {
     <div class="login-content">
         <span class="close-btn" onclick="toggleLogin()">&times;</span>
         <h2>Login to Museum</h2>
-        <p class="login-subtitle">Optional - Enhanced experience for registered users</p>
+        <p class="login-subtitle">Optional — Enhanced experience for registered users</p>
         <form method="POST" class="login-form">
             <input type="hidden" name="action" value="login">
             <div class="form-group">
@@ -107,14 +110,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'toggle_theme') {
     </div>
 </div>
 
+<!-- Login Modal Script -->
 <script>
-// Simple JavaScript for login modal toggle
 function toggleLogin() {
     const modal = document.getElementById('loginModal');
-    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    modal.style.display = (modal.style.display === 'block') ? 'none' : 'block';
 }
 
-// Close modal when clicking outside
 window.onclick = function(event) {
     const modal = document.getElementById('loginModal');
     if (event.target === modal) {
@@ -122,6 +124,3 @@ window.onclick = function(event) {
     }
 }
 </script>
-
-</body>
-</html>
