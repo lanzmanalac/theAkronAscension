@@ -54,6 +54,9 @@ $theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light';
             <a href="milestones.php" class="nav-link">Milestones</a>
             <a href="teammate&rival.php" class="nav-link">Teammates</a>
             <a href="rivalries.php" class="nav-link">Rivalries</a>
+            <?php if ($isLoggedIn): ?>
+                <a href="fanwall.php" class="nav-link">Fan Wall</a>
+            <?php endif; ?>
         </nav>
 
         <!-- Header Controls -->
