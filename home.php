@@ -164,7 +164,7 @@
                     </div>
 
                     <div class="feature-card interactive-hotspot" data-feature="rivalries">
-                        <div class="feature-icon">⚡</div>
+                        <div class="feature-icon">✍</div>
                         <h3> Fan Memory Wall </h3>
                         <p> Leave comments and personal notes for LeBron! </p>
 
@@ -172,7 +172,7 @@
                     </div>
 
                     <div class="feature-card interactive-hotspot" data-feature="rivalries">
-                        <div class="feature-icon">⚡</div>
+                        <div class="feature-icon">📝</div>
                         <h3> Statistics Tracker </h3>
                         <p> See LeBron's progress by the numbers over the years </p>
 
@@ -180,7 +180,7 @@
                     </div>  
 
                     <div class="feature-card interactive-hotspot" data-feature="rivalries">
-                        <div class="feature-icon">⚡</div>
+                        <div class="feature-icon">🤲</div>
                         <h3> Players Praise </h3>
                         <p> Quotes from other basketball players in awe of LeBron's greatness </p>
 
@@ -188,7 +188,7 @@
                     </div> 
 
                     <div class="feature-card interactive-hotspot" data-feature="rivalries">
-                        <div class="feature-icon">⚡</div>
+                        <div class="feature-icon">🥇</div>
                         <h3> The Climb </h3>
                         <p> See LeBron's path for every championship he won </p>
 
