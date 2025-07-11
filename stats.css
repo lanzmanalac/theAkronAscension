@@ -1,0 +1,594 @@
+/* =========================
+   Print Styles
+========================= */
+@media print {
+    .header,
+    .footer,
+    .login-modal {
+        display: none;
+    }
+
+    .hero-section {
+        background: none;
+        color: black;
+        height: auto;
+        padding: 2rem 0;
+    }
+
+    .page-container {
+        background: transparent;
+        color: black;
+    }
+
+    .stat-card {
+        page-break-inside: avoid;
+    }
+}
+
+/* =========================
+   Theme Variables
+========================= */
+.light-theme {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --primary-color: #6f1d96;
+    --secondary-color: #fdb827;
+    --accent-color: #17408b;
+    --card-bg: #f9f9f9;
+    --border-color: #e0e0e0;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --hero-overlay: rgba(0, 0, 0, 0.6);
+}
+
+.dark-theme {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --primary-color: #9f2dbf;
+    --secondary-color: #fdb827;
+    --accent-color: #4a90e2;
+    --card-bg: #2d2d2d;
+    --border-color: #404040;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --hero-overlay: rgba(0, 0, 0, 0.7);
+    /* Removed: background: transparent; - This was causing issues */
+}
+
+/* =========================
+   Page Layout
+========================= */
+.page-container {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    max-width: 1600px; /* Adjust as desired */
+    margin: 0 auto; /* Center the container */
+    box-shadow: var(--shadow); /* Optional: add a subtle shadow to the whole page */
+}
+
+/* =========================
+   Header Styles
+========================= */
+/* Added body.light-theme and body.dark-theme for higher specificity */
+body.light-theme .header,
+body.dark-theme .header {
+    background-color: var(--bg-color) !important; /* Use theme variable for consistent background */
+    box-shadow: var(--shadow) !important; /* Use theme variable for shadow */
+    position: sticky; /* Keep header at top when scrolling */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensure header stays on top of other content */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transition for theme changes */
+}
+
+body.light-theme .nav-container,
+body.dark-theme .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.5rem !important;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+body.light-theme .logo h1,
+body.dark-theme .logo h1 {
+    color: var(--primary-color);
+    font-size: 1.5rem !important; 
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+body.light-theme .logo .tagline,
+body.dark-theme .logo .tagline {
+    color: var(--secondary-color);
+    font-size: 0.8rem !important; 
+    font-style: italic;
+    margin-top: 0;
+}
+
+body.light-theme .main-nav,
+body.dark-theme .main-nav {
+    display: flex;
+    gap: 1.5rem !important; /* Reduced gap between nav links */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+body.light-theme .nav-link,
+body.dark-theme .nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem !important; /* Reduced padding */
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem !important; /* Slightly reduced font size */
+}
+
+body.light-theme .nav-link:hover,
+body.dark-theme .nav-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+body.light-theme .header-controls,
+body.dark-theme .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem !important; /* Reduced gap */
+}
+
+/* =========================
+   Theme Toggle
+========================= */
+body.light-theme .theme-toggle-btn,
+body.dark-theme .theme-toggle-btn {
+    background: var(--card-bg); /* Use card-bg for background for better contrast */
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    padding: 0.4rem; /* Reduced padding */
+    cursor: pointer;
+    font-size: 1.1rem; /* Slightly reduced font size */
+    transition: all 0.3s ease;
+    color: var(--text-color); /* Ensure icon color changes with theme */
+}
+
+body.light-theme .theme-toggle-btn:hover,
+body.dark-theme .theme-toggle-btn:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white; /* Make icon white on hover */
+}
+
+/* =========================
+   Search Form
+========================= */
+body.light-theme .search-form,
+body.dark-theme .search-form {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+}
+
+body.light-theme .search-input,
+body.dark-theme .search-input {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    font-size: 0.9rem;
+    width: 120px;
+    max-width: 100%;
+}
+
+body.light-theme .search-input:focus,
+body.dark-theme .search-input:focus {
+    border-color: var(--primary-color);
+    background-color: var(--bg-color);
+}
+
+body.light-theme .search-btn,
+body.dark-theme .search-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+body.light-theme .search-btn:hover,
+body.dark-theme .search-btn:hover {
+    background-color: var(--primary-color);
+}
+
+/* =========================
+   User Profile & Login/Logout Buttons
+========================= */
+body.light-theme .user-profile,
+body.dark-theme .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+body.light-theme .welcome-msg,
+body.dark-theme .welcome-msg {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+body.light-theme .logout-form,
+body.dark-theme .logout-form {
+    display: inline-block;
+    margin: 0;
+}
+
+body.light-theme .logout-btn,
+body.dark-theme .logout-btn,
+body.light-theme .login-btn,
+body.dark-theme .login-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+body.light-theme .logout-btn:hover,
+body.dark-theme .logout-btn:hover,
+body.light-theme .login-btn:hover,
+body.dark-theme .login-btn:hover {
+    background-color: var(--accent-color);
+}
+
+
+/* =========================
+   Hero Section
+========================= */
+/* Added body.light-theme and body.dark-theme for higher specificity */
+body.light-theme .hero-section,
+body.dark-theme .hero-section {
+    text-align: center;
+    padding: 2rem 1rem !important; /* Reduced vertical padding */
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    color: white;
+    box-shadow: var(--shadow);
+}
+
+body.light-theme .hero-section h2,
+body.dark-theme .hero-section h2 {
+    font-size: 2rem !important; /* Reduced font size */
+    margin-bottom: 0.4rem ;
+}
+
+body.light-theme .hero-section p,
+body.dark-theme .hero-section p {
+    font-size: 0.9rem !important; /* Reduced font size */
+    opacity: 0.9;
+}
+
+/* =========================
+   Stats Grid
+========================= */
+body.light-theme .stats-grid,
+body.dark-theme .stats-grid {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+body.light-theme .stat-card,
+body.dark-theme .stat-card {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 1.2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.light-theme .stat-card:hover,
+body.dark-theme .stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .stat-card h3,
+body.dark-theme .stat-card h3 {
+    margin-bottom: 0.8rem;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+body.light-theme .stat-card ul,
+body.dark-theme .stat-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+body.light-theme .stat-card li,
+body.dark-theme .stat-card li {
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+body.light-theme .stat-card li:last-child,
+body.dark-theme .stat-card li:last-child {
+    border-bottom: none;
+}
+
+/* =========================
+   Login Modal Styles (from header.php, apply styles here)
+========================= */
+body.light-theme .login-modal,
+body.dark-theme .login-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.light-theme .login-content,
+body.dark-theme .login-content {
+    background-color: var(--card-bg);
+    margin: auto;
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    width: 90%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    position: relative;
+    color: var(--text-color);
+    text-align: center;
+}
+
+body.light-theme .login-content h2,
+body.dark-theme .login-content h2 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+body.light-theme .login-subtitle,
+body.dark-theme .login-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+body.light-theme .login-form,
+body.dark-theme .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+body.light-theme .form-group,
+body.dark-theme .form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+body.light-theme .form-group label,
+body.dark-theme .form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+body.light-theme .login-form input[type="text"],
+body.dark-theme .login-form input[type="text"],
+body.light-theme .login-form input[type="password"],
+body.dark-theme .login-form input[type="password"] {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+body.light-theme .login-form input[type="text"]:focus,
+body.dark-theme .login-form input[type="text"]:focus,
+body.light-theme .login-form input[type="password"]:focus,
+body.dark-theme .login-form input[type="password"]:focus {
+    border-color: var(--primary-color);
+}
+
+body.light-theme .submit-btn,
+body.dark-theme .submit-btn {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+body.light-theme .submit-btn:hover,
+body.dark-theme .submit-btn:hover {
+    background-color: var(--primary-color);
+}
+
+body.light-theme .guest-note,
+body.dark-theme .guest-note {
+    font-size: 0.8rem;
+    margin-top: 15px;
+    color: var(--text-color);
+}
+
+body.light-theme .close-btn,
+body.dark-theme .close-btn {
+    color: var(--text-color);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+body.light-theme .close-btn:hover,
+body.dark-theme .close-btn:hover,
+body.light-theme .close-btn:focus,
+body.dark-theme .close-btn:focus {
+    color: var(--primary-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* =========================
+   Error Message
+========================= */
+body.light-theme .no-data-message,
+body.dark-theme .no-data-message {
+    margin: 1rem 2rem;
+    padding: 1rem;
+    background-color: #ffe6e6;
+    color: #a94442;
+    border-left: 5px solid #d9534f;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* =========================
+   Footer
+========================= */
+body.light-theme .footer,
+body.dark-theme .footer {
+    background-color: var(--card-bg);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    border-top: 1px solid var(--border-color);
+    margin-top: 2rem;
+}
+
+/* =========================
+   Responsive Design
+========================= */
+@media (max-width: 900px) {
+    body.light-theme .nav-container,
+    body.dark-theme .nav-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 0.5rem 1rem !important;
+    }
+
+    body.light-theme .main-nav,
+    body.dark-theme .main-nav {
+        margin-top: 0.8rem;
+        gap: 0.8rem !important;
+    }
+
+    body.light-theme .header-controls,
+    body.dark-theme .header-controls {
+        margin-top: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem !important;
+    }
+
+    body.light-theme .search-input,
+    body.dark-theme .search-input {
+        width: 100px;
+    }
+
+    body.light-theme .hero-section h2,
+    body.dark-theme .hero-section h2 {
+        font-size: 1.8rem !important;
+    }
+
+    body.light-theme .stats-grid,
+    body.dark-theme .stats-grid {
+        padding: 1rem;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    body.light-theme .logo h1,
+    body.dark-theme .logo h1 {
+        font-size: 1.3rem !important;
+    }
+    body.light-theme .logo .tagline,
+    body.dark-theme .logo .tagline {
+        font-size: 0.75rem !important;
+    }
+    body.light-theme .nav-link,
+    body.dark-theme .nav-link,
+    body.light-theme .theme-toggle-btn,
+    body.dark-theme .theme-toggle-btn,
+    body.light-theme .search-input,
+    body.dark-theme .search-input,
+    body.light-theme .search-btn,
+    body.dark-theme .search-btn,
+    body.light-theme .welcome-msg,
+    body.dark-theme .welcome-msg,
+    body.light-theme .logout-btn,
+    body.dark-theme .logout-btn,
+    body.light-theme .login-btn,
+    body.dark-theme .login-btn {
+        font-size: 0.85rem !important;
+    }
+    body.light-theme .hero-section,
+    body.dark-theme .hero-section {
+        padding: 1.5rem 0.5rem !important;
+    }
+    body.light-theme .hero-section h2,
+    body.dark-theme .hero-section h2 {
+        font-size: 1.5rem !important;
+    }
+    body.light-theme .hero-section p,
+    body.dark-theme .hero-section p {
+        font-size: 0.8rem !important;
+    }
+    body.light-theme .stats-grid,
+    body.dark-theme .stats-grid {
+        grid-template-columns: 1fr;
+        padding: 0.5rem;
+    }
+    body.light-theme .stat-card,
+    body.dark-theme .stat-card {
+        padding: 1rem;
+    }
+    body.light-theme .login-content,
+    body.dark-theme .login-content {
+        padding: 20px;
+        width: 95%;
+    }
+}

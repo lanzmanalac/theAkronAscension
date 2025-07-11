@@ -64,7 +64,7 @@ body {
 .nav-container {
     display: flex;
     justify-content: space-between;
-    align-items: right;
+    align-items: center; /* Changed from 'right' to 'center' */
     padding: 1rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -367,6 +367,7 @@ body {
     gap: 2rem;
     margin-top: 2rem;
     align-items: center;
+    justify-content: center; /* Added this line for centering */
 }
 
 .feature-card {
@@ -651,6 +652,7 @@ body {
         flex-direction: column;
         gap: 1rem;
         padding: 1rem;
+        align-items: center; /* Added for vertical centering when stacked */
     }
     
     .main-nav {

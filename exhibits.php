@@ -7,17 +7,15 @@
     <link rel="stylesheet" href="exhibits.css">
 </head>
 <body>
-    <!-- Navigation Header -->
-    
     <?php
     // Simple PHP login check (optional)
     session_start();
     $isLoggedIn = isset($_SESSION['user_logged_in']) ? $_SESSION['user_logged_in'] : false;
     
     // Handle login form submission
-    if ($_POST['action'] == 'login') {
+    if (isset($_POST['action']) && $_POST['action'] == 'login') {
         // Simple authentication (in real app, use proper validation)
-        if ($_POST['username'] && $_POST['password']) {
+        if (!empty($_POST['username']) && !empty($_POST['password'])) { // Added !empty checks for robustness
             $_SESSION['user_logged_in'] = true;
             $_SESSION['username'] = $_POST['username'];
             $isLoggedIn = true;
@@ -25,21 +23,20 @@
     }
     
     // Handle logout
-    if ($_POST['action'] == 'logout') {
+    if (isset($_POST['action']) && $_POST['action'] == 'logout') {
         session_destroy();
         $isLoggedIn = false;
     }
     
     // Handle theme toggle
     $theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light';
-    if ($_POST['action'] == 'toggle_theme') {
+    if (isset($_POST['action']) && $_POST['action'] == 'toggle_theme') {
         $theme = $theme === 'light' ? 'dark' : 'light';
         setcookie('theme', $theme, time() + (86400 * 30), "/"); // 30 days
     }
     ?>
 
     <div class="page-container <?php echo $theme; ?>-theme">
-        <!-- Header Section -->
         <header class="header">
             <div class="nav-container">
                 <div class="logo">
@@ -48,11 +45,16 @@
                 </div>
                 
                 <nav class="main-nav">
-                    <a href="home.php" class="nav-link"> Back to Home Page</a>
+                    <a href="home.php" class="nav-link">Back to Home</a>
+                    <a href="timeline.php" class="nav-link">Timeline</a>
+                    <a href="milestones.php" class="nav-link">Milestones</a>
+                    <a href="teammate&rival.php" class="nav-link">Teammates</a>
+                    <a href="rivalries.php" class="nav-link">Rivalries</a>
+                    <a href="fanwall.php" class="nav-link">Fan Wall</a>
+
                 </nav>
                 
                 <div class="header-controls">
-                    <!-- Theme Toggle -->
                     <form method="POST" class="theme-toggle-form">
                         <input type="hidden" name="action" value="toggle_theme">
                         <button type="submit" class="theme-toggle-btn">
@@ -60,13 +62,11 @@
                         </button>
                     </form>
                     
-                    <!-- Search Form -->
                     <form class="search-form" method="GET">
                         <input type="text" name="search" placeholder="Search museum..." class="search-input">
                         <button type="submit" class="search-btn">🔍</button>
                     </form>
                     
-                    <!-- Login/Profile Section -->
                     <?php if ($isLoggedIn): ?>
                         <div class="user-profile">
                             <form method="POST" class="logout-form">
@@ -82,14 +82,12 @@
             </div>
         </header>
 
-    <!-- Trophy Room Main Content -->
     <main class="trophy-room">
         <div class="room-header">
             <h1 class="room-title">The Trophy Room</h1>
             <p class="room-description">Step into the legacy of greatness. Explore LeBron James' most prestigious awards and achievements that define his legendary career.</p>
         </div>
 
-        <!-- Championship Trophies Section -->
         <section class="trophy-section championships">
             <h2 class="section-title">NBA Championships</h2>
             <div class="trophy-grid">
@@ -171,7 +169,6 @@
             </div>
         </section>
 
-        <!-- MVP Awards Section -->
         <section class="trophy-section mvp-awards">
             <h2 class="section-title">MVP Awards</h2>
             <div class="trophy-grid">
@@ -253,7 +250,6 @@
             </div>
         </section>
 
-        <!-- Special Achievements Section -->
         <section class="trophy-section special-awards">
             <h2 class="section-title">Special Achievements</h2>
             <div class="trophy-grid">
@@ -332,7 +328,6 @@
             </div>
         </section>
 
-        <!-- Legacy Quote Section -->
         <section class="legacy-section">
             <div class="legacy-quote">
                 <blockquote>
@@ -343,7 +338,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="museum-footer">
         <div class="footer-content">
             <p>&copy; 2024 LeBron James Virtual Museum. Experience the legacy of greatness.</p>
