@@ -20,7 +20,7 @@ body {
     padding: 0 20px;
 }
 
-/* Header Styles */
+/* Header Styles (These are generally fine, using theme variables) */
 .museum-header {
     background-color: var(--card-bg);
     box-shadow: var(--shadow);
@@ -112,7 +112,7 @@ body {
 .search-btn {
     background: var(--secondary-color);
     border: none;
-    color: var(--text-color);
+    color: var(--text-color); /* This was previously white in home.css search-btn, keeping it consistent with exhibits.css */
     padding: 8px 12px;
     border-radius: 50%;
     cursor: pointer;
@@ -128,13 +128,16 @@ body {
 .room-header {
     text-align: center;
     margin-bottom: 60px;
-    padding: 40px 20px;
-    background: none;
+    padding: 60px 20px; /* Increased vertical padding for more presence */
+    
+    /* MODIFIED: Added a subtle linear gradient background for light mode */
+    background: linear-gradient(to bottom, var(--hero-gradient-start), var(--hero-gradient-end));
     background-size: cover;
     background-position: center;
     border-radius: 20px;
-    color: white;
+    color: var(--text-color);
     box-shadow: var(--shadow);
+    border: 1px solid var(--border-color); /* Added border for better definition */
 }
 
 .room-title {
@@ -157,7 +160,7 @@ body {
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 3rem;
-    color: var(--primary-color);
+    color: var(--text-color);
     position: relative;
 }
 
@@ -183,8 +186,8 @@ body {
 .trophy-display {
     background-color: var(--card-bg);
     border-radius: 15px;
-    box-shadow: var(--shadow);
-    border: 2px solid transparent;
+    box-shadow: var(--shadow); /* Will now use the more pronounced shadow */
+    border: 2px solid var(--border-color); /* MODIFIED: Border always visible for definition */
     transition: all 0.3s ease;
     overflow: hidden;
     padding: 2rem;
@@ -194,7 +197,7 @@ body {
 .trophy-display:hover {
     transform: translateY(-5px);
     border-color: var(--primary-color);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Slightly stronger hover shadow */
 }
 
 .trophy-icon {
@@ -206,7 +209,7 @@ body {
 .trophy-item h3 {
     font-size: 1.4rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--text-color);
     margin-bottom: 0.5rem;
 }
 
@@ -218,17 +221,17 @@ body {
 
 .trophy-year {
     font-size: 0.9rem;
-    color: var(--accent-color);
     font-weight: bold;
+    color: var(--text-color);
 }
 
 /* Legacy Section */
 .legacy-section {
-    background-color: var(--card-bg);
+    background-color: var(--card-bg); /* Will use the slightly darker card-bg */
     padding: 4rem 2rem;
     border-radius: 15px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow); /* Will use the more pronounced shadow */
+    border: 1px solid var(--border-color); /* Ensure border is visible */
     margin-top: 4rem;
     text-align: center;
 }
@@ -244,7 +247,7 @@ body {
     display: block;
     margin-top: 1rem;
     font-weight: bold;
-    color: var(--secondary-color);
+    color: var(--text-color);
     opacity: 0.8;
 }
 
@@ -254,34 +257,43 @@ body {
     border-top: 1px solid var(--border-color);
     padding: 3rem 0 1rem;
     margin-top: 4rem;
+    text-align: center; /* Ensures copyright text is centered by default */
 }
 
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+.museum-footer .footer-content {
+    /* MODIFIED: Changed from grid to flex for vertical stacking of copyright and links */
+    display: flex;
+    flex-direction: column; /* Stack the paragraph and link div vertically */
+    align-items: center; /* Center items horizontally within the footer-content */
+    
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    gap: 1rem; /* Space between the paragraph and the .footer-links div */
 }
 
-.footer-links a {
+.museum-footer .footer-content p {
+    margin-bottom: 0.5rem; /* Added space below the copyright text */
+    opacity: 0.8;
+}
+
+.museum-footer .footer-links { /* NEW/MODIFIED: Styles for the links container */
+    display: flex; /* Arranges the links horizontally */
+    gap: 1.5rem; /* Space between individual links */
+    flex-wrap: wrap; /* Allows links to wrap onto the next line on smaller screens */
+    justify-content: center; /* Centers the links if they wrap */
+}
+
+.museum-footer .footer-links a {
     color: var(--text-color);
     text-decoration: none;
     opacity: 0.8;
     transition: color 0.3s ease;
 }
 
-.footer-links a:hover {
+.museum-footer .footer-links a:hover {
     color: var(--primary-color);
     opacity: 1;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 1rem;
-    color: var(--text-color);
-    opacity: 0.6;
 }
 
 /* Animations */
@@ -324,9 +336,15 @@ body {
         font-size: 1.5rem;
     }
 
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
+    /* MODIFIED: Responsive rule for footer content */
+    .museum-footer .footer-content {
+        padding: 0 15px; /* Adjust padding for smaller screens */
+    }
+
+    /* NEW: Responsive rule for footer links */
+    .museum-footer .footer-links {
+        flex-direction: column; /* Stack links vertically on smaller screens */
+        gap: 0.75rem; /* Adjust gap when stacked */
     }
 }
 
@@ -351,21 +369,31 @@ body {
 /* Print Styles */
 @media print {
     .header,
-    .footer,
-    {
+    .footer {
         display: none;
     }
     
     .hero-section {
         background: none;
-        color: black;
+        color: black; /* Ensure black text for printing */
         height: auto;
         padding: 2rem 0;
     }
     
     .page-container {
         background: transparent;
-        color: black;
+        color: black; /* Ensure black text for printing */
+    }
+    /* Also ensure other elements have black text for printing if they don't inherit from page-container */
+    .section-title,
+    .trophy-item h3,
+    .trophy-details,
+    .trophy-year,
+    .legacy-quote blockquote,
+    .legacy-quote cite,
+    .footer-links a,
+    .museum-footer .footer-content p { /* Ensure copyright text is black for printing */
+        color: black !important;
     }
 }
 
@@ -377,10 +405,13 @@ body {
     --primary-color: #6f1d96;
     --secondary-color: #fdb827;
     --accent-color: #17408b;
-    --card-bg: #f9f9f9;
-    --border-color: #e0e0e0;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --card-bg: #f7f7f7; /* MODIFIED: Slightly darker off-white for cards/sections */
+    --border-color: #dcdcdc; /* MODIFIED: Slightly darker border for more definition */
+    --shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* MODIFIED: More pronounced shadow */
     --hero-overlay: rgba(0, 0, 0, 0.6);
+    /* NEW: Variables for hero section gradient background */
+    --hero-gradient-start: #e0e0e0;
+    --hero-gradient-end: #f0f0f0;
 }
 
 .dark-theme {
@@ -393,7 +424,6 @@ body {
     --border-color: #404040;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     --hero-overlay: rgba(0, 0, 0, 0.7);
-    background: transparent;
 }
 
 .page-container {
@@ -402,7 +432,9 @@ body {
     min-height: 100vh;
 }
 
-/* Header Styles */
+/* Duplicated Header Styles - please consolidate these with the ones at the top of the file
+   or determine if they are intended for a specific purpose (e.g., overriding).
+   For this request, they remain untouched as they were in your provided file. */
 .header {
     background-color: transparent;
     box-shadow: none;
@@ -489,7 +521,6 @@ body {
     border: 2px solid var(--border-color);
     border-radius: 5px;
     background-color: transparent;
-
     color: var(--text-color);
     outline: none;
     transition: border-color 0.3s ease;
@@ -501,7 +532,7 @@ body {
 
 .search-btn {
     background-color: transparent;
-    color: white;
+    color: white; /* This color is specific to the button text, might need adjustment for theme if it becomes unreadable */
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 5px;
